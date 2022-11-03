@@ -1,14 +1,13 @@
 dstcnv - DST encoded DSDIFF to decoded DSDIFF file converter
 Copyright (c) 2017 by Takayuki Nakano
+Copyright (c) 2022 by Baoshan Sheng
  
 This software is distributed under the GPL2 (GNU Public License v2.0).
 
 Test environments
 =================
 
-* macOS 10.13 + Xcode 9.2 + Command Line Tools
-* Windows 7 Home SP1(x86) + TDM-GCC 5.1.0/MinGW32 
-* CentOS 7 (3.10.0-693.el7.x86_64) + gcc 4.8.5
+* macOS 13.1 + Xcode 14.1 + Command Line Tools
 
 How to compile
 ==============
