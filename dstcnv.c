@@ -188,9 +188,7 @@ void do_process_property_chunk( void )
 	off_t		cursor;
 
 	fread( &chunk_size, 1, 8, fpr );
-	w_chunk_size = bswap64( chunk_size ) + 4;		// +4 is difference of
-													// CMPR chunk size between
-													// DST and DSD.
+	w_chunk_size = bswap64( chunk_size );
 	w_chunk_size = bswap64( w_chunk_size );
 	fwrite( &w_chunk_size, 1, 8, fpw );
 
