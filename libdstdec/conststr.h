@@ -143,7 +143,7 @@ Changes:
 #define MAX_DSDBYTES_INFRAME  18816
 
 #define MAX_CHANNELS 6
-#define MAX_DSDBITS_INFRAME (588 * 64)
+#define MAX_DSDBITS_INFRAME (8 * MAX_DSDBYTES_INFRAME) 
 #define MAXNROF_SEGS 8            /* max nr of segments per channel for filters or Ptables */
 
 enum DST_ErrorCodes

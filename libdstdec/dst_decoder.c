@@ -90,6 +90,7 @@ job_t;
 struct dst_decoder_s
 {
     int procs;            /* maximum number of compression threads (>= 1) */
+    int multi;
     int channel_count;
 
     int sequence;       /* each job get's a unique sequence number */
@@ -197,7 +198,7 @@ static void decode_thread(void *userdata)
     ebunch      D;
     dst_decoder_t *dst_decoder = (dst_decoder_t *) userdata;
 
-    if (DST_InitDecoder(&D, dst_decoder->channel_count, 64) != 0)
+    if (DST_InitDecoder(&D, dst_decoder->channel_count, 64 * dst_decoder->multi) != 0)
     {
         pthread_exit(0);
     }
@@ -229,7 +230,7 @@ static void decode_thread(void *userdata)
             //if (job->error != DSTErr_NoError)
                 //LOG(lm_main, LOG_ERROR, ("ERROR: %s on frame: %d", DST_GetErrorMessage(job->error), D.FrameHdr.FrameNr));
 
-            job->out->len = (size_t)(MAX_DSDBITS_INFRAME / 8 * dst_decoder->channel_count);
+            job->out->len = (size_t)(588 * 64 * dst_decoder->multi / 8 * dst_decoder->channel_count);
             buffer_pool_drop_space(job->in);
 
             //LOG(lm_main, LOG_NOTICE, ("-- decoded #%ld%s", job->seq, job->more ? "" : " (last)"));
@@ -347,7 +348,7 @@ static void finish_write_job(dst_decoder_t *dst_decoder)
     dst_decoder->writeth = NULL;
 }
 
-dst_decoder_t* dst_decoder_create(int channel_count, frame_decoded_callback_t frame_decoded_callback, frame_error_callback_t frame_error_callback, void *userdata)
+dst_decoder_t* dst_decoder_create(int frequency, int channel_count, frame_decoded_callback_t frame_decoded_callback, frame_error_callback_t frame_error_callback, void *userdata)
 {
     dst_decoder_t *dst_decoder = (dst_decoder_t*) calloc(sizeof(dst_decoder_t), 1);
 
@@ -356,6 +357,7 @@ dst_decoder_t* dst_decoder_create(int channel_count, frame_decoded_callback_t fr
 
     assert(frame_decoded_callback);
 
+    dst_decoder->multi = frequency / 44100 / 64;
     dst_decoder->channel_count = channel_count;
     dst_decoder->userdata = userdata;
     dst_decoder->frame_decoded_callback = frame_decoded_callback;

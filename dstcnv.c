@@ -212,6 +212,7 @@ void do_process_property_chunk( void )
 		else if( memcmp( chunk_ID, "FS  ", 4 ) == 0 ) {
 			memcpy( (uint8_t *)&frequency, chunk_data, 4 );
 			frequency = bswap32( frequency );
+            if (frequency != 44100 * 64) fatal("Manually limited to DSD64.");
 		}
 		else if( memcmp( chunk_ID, "CMPR", 4 ) == 0 ) {
 			if( memcmp( chunk_data, "DSD ", 4 ) == 0 ) {
@@ -276,7 +277,7 @@ void do_process_dst_sound_data_chunk( void )
 			// Found DST frame information chunk
 			fread( &num_frames, 1, 4, fpr );		// number of DST frames
 			num_frames = bswap32( num_frames );
-			dsd_size = ( MAX_DSDBITS_INFRAME / 8 * num_channels ) * num_frames;
+			dsd_size = ( frequency / 75 / 8 * num_channels ) * num_frames;
 			if( quiet_mode == 0 ) {
 				sample_count = dsd_size * 8 / num_channels;
 				duration = (double)sample_count / (double)frequency;
@@ -364,7 +365,7 @@ void do_decode_DST( void )
 			// Found property chunk
 			fwrite( chunk_ID, 1, 4, fpw );
 			do_process_property_chunk();
-			dstdec = dst_decoder_create( num_channels, decode_callback,
+			dstdec = dst_decoder_create( frequency, num_channels, decode_callback,
 										 error_callback, NULL );
 			if( dstdec == NULL ) {
 				fatal( "DST decoder cannot be initialized." );

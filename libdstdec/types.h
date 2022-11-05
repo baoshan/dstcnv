@@ -42,7 +42,7 @@ assign or donate the code to a third party and to inhibit third party from
 using the code for non MPEG-4 Audio conforming products. This copyright notice
 must be included in all copies of derivative works.
 
-Copyright © 2004.
+Copyright ï¿½ 2004.
 
 Source file: types.h (Type definitions)
 
@@ -106,9 +106,9 @@ typedef struct
                                                                 /* start of each frame are optionally coded   */
                                                                 /* with p=0.5                                 */
     Segment FSeg;                                               /* Contains segmentation data for filters     */
-    char    Filter4Bit[MAX_CHANNELS][MAX_DSDBITS_INFRAME];      /* Filter4Bit[ChNr][BitNr]                    */
+    char    Filter4Bit[MAX_CHANNELS][MAX_DSDBITS_INFRAME / 2];      /* Filter4Bit[ChNr][BitNr]                    */
     Segment PSeg;                                               /* Contains segmentation data for Ptables     */
-    char    Ptable4Bit[MAX_CHANNELS][MAX_DSDBITS_INFRAME];      /* Ptable4Bit[ChNr][BitNr]                    */
+    char    Ptable4Bit[MAX_CHANNELS][MAX_DSDBITS_INFRAME / 2];      /* Ptable4Bit[ChNr][BitNr]                    */
     int     PSameSegAsF;                                        /* 1 if segmentation is equal for F and P     */
     int     PSameMapAsF;                                        /* 1 if mapping is equal for F and P          */
     int     FSameSegAllCh;                                      /* 1 if all channels have same Filtersegm.    */

@@ -42,7 +42,7 @@ assign or donate the code to a third party and to inhibit third party from
 using the code for non MPEG-4 Audio conforming products. This copyright notice
 must be included in all copies of derivative works.
 
-Copyright © 2004.
+Copyright ï¿½ 2004.
 
 Source file: dst_fram.c (Frame processing of the DST Coding)
 
@@ -183,7 +183,7 @@ static __inline int LT_ACGetPtableIndex(int16_t PredicVal, int PtableLen)
 /*                                                                         */
 /***************************************************************************/
 
-static void FillTable4Bit(int NrOfChannels, int NrOfBitsPerCh, Segment *S, char Table4Bit[MAX_CHANNELS][MAX_DSDBITS_INFRAME])
+static void FillTable4Bit(int NrOfChannels, int NrOfBitsPerCh, Segment *S, char Table4Bit[MAX_CHANNELS][MAX_DSDBITS_INFRAME / 2])
 {
     int BitNr;
     int ChNr;

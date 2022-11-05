@@ -38,7 +38,7 @@ assign or donate the code to a third party and to inhibit third party from
 using the code for non MPEG-4 Audio conforming products. This copyright notice
 must be included in all copies of derivative works.
 
-Copyright © 2004.
+Copyright ï¿½ 2004.
 
 Source file: DST_init.c (DST Coder Initialisation)
 
@@ -57,7 +57,6 @@ Changes:
 /*       INCLUDES                                                             */
 /*============================================================================*/
 
-#include <mm_malloc.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -82,7 +81,7 @@ static void *MemoryAllocate(int NrOfElements, int SizeOfElement)
 {
   void *Array;
 
-  if ((Array = _mm_malloc(NrOfElements * SizeOfElement, 16)) == NULL) 
+  if ((Array = malloc(NrOfElements * SizeOfElement)) == NULL)
   {
     fprintf(stderr,"ERROR: not enough memory available!\n\n");
   }
@@ -91,7 +90,7 @@ static void *MemoryAllocate(int NrOfElements, int SizeOfElement)
 
 static void MemoryFree(void *Array) 
 {
-  _mm_free(Array);
+  free(Array);
 }
 
 /* General function for allocating memory for array of any type */
